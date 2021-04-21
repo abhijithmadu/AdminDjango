@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+<title>Add User</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+body {
+	color: #fff;
+	background: #c362e0;
+	font-family: 'Roboto', sans-serif;
+}
+.form-control {
+	min-height: 41px;
+	box-shadow: none;
+	border-color: #ddd;
+}
+.form-control, .btn {        
+	border-radius: 3px;
+}
+.signup-form {
+	width: 425px;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+.signup-form form {
+	color: #999;
+	border-radius: 3px;
+	margin-bottom: 15px;
+	background: #fff;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+.signup-form h2 {
+	color: #333;
+	font-weight: bold;
+	margin-top: 0;
+}
+.signup-form hr {
+	margin: 0 -30px 20px;
+}
+.signup-form .form-group {
+	margin-bottom: 20px;
+}
+.signup-form label {
+	font-weight: normal;
+	font-size: 14px;
+}
+.signup-form input[type="checkbox"] {
+	margin-top: 6px;
+}    
+.signup-form .btn {        
+	font-size: 16px;
+	font-weight: bold;
+	background: #c362e0;
+	border: none;
+	min-width: 140px;
+}
+.signup-form .btn:hover, .signup-form .btn:active {
+	background: #c362e0;
+	outline: none !important;
+}
+.signup-form a {
+	color: #fff;
+	text-decoration: underline;
+}
+.signup-form a:hover {
+	text-decoration: none;
+}
+.signup-form form a {
+	color: #c362e0;
+	text-decoration: none;
+}
+.signup-form form a:hover {
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="signup-form">
+    <form action="" method="post" onsubmit="return validation()">
+	
+        {% csrf_token %}
+		<h2>Add User</h2>
+		<p>Please fill in this form to Add an account!</p>
+		<hr>
+        
+        <div class="form-group">
+			<label>FullName</label>
+            <input type="text" class="form-control" name="first_name" id="name" autocomplete="off">
+			<span id="fname" class="text-danger font-weight-bold"></span>
+
+        </div>
+        <div class="form-group">
+			<label>Username</label>
+        	<input type="text" class="form-control" name="username" id="user" autocomplete="off">
+			<span id="username" class="text-danger font-weight-bold"></span>
+			{{error}}
+        </div>
+        <div class="form-group">
+			<label>Email Address</label>
+        	<input type="text" class="form-control" name="email" id="email" autocomplete="off">
+			<span id="emailval" class="text-danger font-weight-bold"></span>
+        </div>
+		
+
+		
+		<div class="form-group">
+			<label>Password</label>
+            <input type="password" class="form-control" name="password" id="password" autocomplete="off">
+			<span id="psw" class="text-danger font-weight-bold"></span>
+        </div>
+		
+		
+		<!-- <div class="form-group form-check">
+			<input type="checkbox" class="form-check-input" required="required">
+			<label class="form-check-label">I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+		</div> -->
+		<div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" >Add User</button>
+        </div>
+		
+    </form>
+	<script>
+		function validation(){
+			var user=document.getElementById('user').value;
+			var name=document.getElementById('name').value;
+			var email=document.getElementById('email').value;
+			var pass=document.getElementById('password').value;
+			var reg =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+			
+			if(name == ""){
+				document.getElementById('fname').innerHTML= "Please Fill The name Field";
+				return false;
+			}	
+			if((name.length < 4) || (name.length >=20)){
+				document.getElementById('fname').innerHTML= "Name length between 4 and 20";
+				return false;
+			}
+			if(!isNaN(name)){
+				document.getElementById('fname').innerHTML= "Name should be character";
+				return false;
+
+			}
+
+
+
+			if(user==""){
+				document.getElementById('username').innerHTML= "Please Fill The Username Field";
+				return false;
+			}
+			if((user.length < 4) || (user.length >=10)){
+				document.getElementById('username').innerHTML= "Username length between 4 and 10";
+				return false;
+			}
+
+
+			if(email == ""){
+				document.getElementById('emailval').innerHTML= "Please Fill The email Field";
+				return false;
+			}
+			if(!email.match(reg)){
+				document.getElementById('emailval').innerHTML= "Please Fill a valid email id";
+				return false;
+            }
+
+
+			if(pass == ""){
+				document.getElementById('psw').innerHTML= "Please Fill The password Field";
+				return false;
+			}
+			if((pass.length < 4) || (pass.length >=10)){
+				document.getElementById('psw').innerHTML= "password length between 4 and 10";
+				return false;
+			}
+		}
+	</script>
+	
+	
+</div>
+</body>
+</html>
